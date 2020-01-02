@@ -7,7 +7,7 @@
 > Would you recommend this workshop to a classmate?
 
 
-> How could the workshop be improed?
+> How could the workshop be improved?
 
 
 > What was your favourite part?
