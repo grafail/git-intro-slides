@@ -2,7 +2,6 @@ const path = require('path')
 const HTMLWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
-const GhPagesWebpackPlugin = require('gh-pages-webpack-plugin')
 const glob = require('glob')
 const randomEmoji = require('random-emoji')
 
@@ -44,37 +43,6 @@ let config = {
   ]
 }
 
-function setup(env) {
-  //Publish to github with webpack --env.publish
-
-  if (!env) {
-    env = {}
-  }
-
-  if (env.publish) {
-    emojis = randomEmoji.random({count: 2})
-    config.plugins.push(
-      new GhPagesWebpackPlugin({
-        path: `${__dirname}/build`,
-        options: {
-            message: `Updating published slides ${emojis[0].character}${emojis[1].character}`,
-        }
-    })
-    )
-  }
-
-  //Export anything in diagrams to the appropriate URL in output
-  glob.sync(`${__dirname}/src/diagrams/*.?(pug|jade)`).forEach((item) => {
-    config.plugins.push(
-      new HTMLWebpackPlugin({
-        filename: `diagrams/${path.basename(item, path.extname(item))}.html`,
-        template: item
-      }))
-  });
-
-  return config
-}
 
 
-
-module.exports = setup
+module.exports = config
